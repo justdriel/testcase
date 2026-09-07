@@ -1,0 +1,41 @@
+name: Static Analysis Test
+
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  cppcheck:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        file:
+          - 01_unused_function_wrong.c
+          - 01_unused_function_right.c
+          - 02_shadowing_wrong.c
+          - 02_shadowing_right.c
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cppcheck
+        run: sudo apt-get update && sudo apt-get install -y cppcheck
+      - name: Run cppcheck on ${{ matrix.file }}
+        run: cppcheck --enable=all --inconclusive test-cases/${{ matrix.file }}
+
+  clang-tidy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        file:
+          - 01_unused_function_wrong.c
+          - 01_unused_function_right.c
+          - 02_shadowing_wrong.c
+          - 02_shadowing_right.c
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang-tidy
+        run: sudo apt-get update && sudo apt-get install -y clang-tidy
+      - name: Run clang-tidy on ${{ matrix.file }}
+        run: clang-tidy test-cases/${{ matrix.file }} -- -Itest-cases
