@@ -1,8 +1,9 @@
 #include <stdio.h>
 
 int main(void) {
-    int a = 5;
-    a = 10;
+    int a;
+    a = 5;
+    a = 10;      // clearer dead store — first assignment never read
     printf("%d\n", a);
     return 0;
 }
