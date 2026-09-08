@@ -12,12 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         file:
-          - 01_unused_function_wrong.c
-          - 01_unused_function_right.c
-          - 02_shadowing_wrong.c
-          - 02_shadowing_right.c
-          - 03_dead_store_wrong.c
-          - 03_dead_store_right.c
+          - bl1_process.c
+          - bl1_process.h
     steps:
       - uses: actions/checkout@v4
       - name: Install cppcheck
