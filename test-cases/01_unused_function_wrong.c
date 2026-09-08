@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int unused_helper(void) {
+static int unused_helper(void) {
     return 42;
 }
 
