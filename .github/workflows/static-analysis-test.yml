@@ -46,4 +46,3 @@ jobs:
           clang-tidy test-cases/${{ matrix.file }} \
             --checks="-*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,misc-*,readability-*" \
             -- -x c -std=c11 -Wall -Wextra -Wshadow -Itest-cases
-          
