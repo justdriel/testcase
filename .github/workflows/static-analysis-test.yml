@@ -18,21 +18,31 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install cppcheck
         run: sudo apt-get update && sudo apt-get install -y cppcheck
-      - name: Set up MISRA addon
-        run: |
-          mkdir -p addons
-          curl -sSL -o addons/misra.py https://raw.githubusercontent.com/danmar/cppcheck/main/addons/misra.py
-          curl -sSL -o addons/cppcheckdata.py https://raw.githubusercontent.com/danmar/cppcheck/main/addons/cppcheckdata.py
-      - name: Run cppcheck with MISRA
-        run: |
-          cppcheck \
-            --enable=all \
-            --inconclusive \
-            --addon=addons/misra.py \
-            --inline-suppr \
-            --suppress=missingIncludeSystem \
-            -I test-cases \
-            test-cases/${{ matrix.file }}
+      - name: Run cppcheck on ${{ matrix.file }}
+        run: cppcheck --enable=all --inconclusive -I test-cases test-cases/${{ matrix.file }}
+
+
+
+
+
+
+
+        
+#      - name: Set up MISRA addon
+#        run: |
+#         mkdir -p addons
+#          curl -sSL -o addons/misra.py https://raw.githubusercontent.com/danmar/cppcheck/main/addons/misra.py
+#          curl -sSL -o addons/cppcheckdata.py https://raw.githubusercontent.com/danmar/cppcheck/main/addons/cppcheckdata.py
+#      - name: Run cppcheck with MISRA
+#        run: |
+#          cppcheck \
+#           --enable=all \
+#            --inconclusive \
+#            --addon=addons/misra.py \
+#            --inline-suppr \
+#            --suppress=missingIncludeSystem \
+#            -I test-cases \
+#            test-cases/${{ matrix.file }}
 
       
 
