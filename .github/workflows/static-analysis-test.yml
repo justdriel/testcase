@@ -19,8 +19,15 @@ jobs:
       - name: Install cppcheck
         run: sudo apt-get update && sudo apt-get install -y cppcheck
       - name: Run cppcheck on ${{ matrix.file }}
-        run: cppcheck --enable=all --inconclusive -I test-cases test-cases/${{ matrix.file }}
-
+        run: cppcheck \
+              --enable=all \
+              --inconclusive \
+              --addon=/usr/share/cppcheck/addons/misra.py \
+              --inline-suppr \
+              --suppress=missingIncludeSystem \
+              -I test-cases \
+              test-cases/${{ matrix.file }}
+            
   clang-tidy:
     runs-on: ubuntu-latest
     strategy:
