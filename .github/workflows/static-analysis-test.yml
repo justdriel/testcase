@@ -67,4 +67,27 @@ jobs:
         run: |
           clang-tidy test-cases/${{ matrix.file }} \
             --checks="-*,clang-diagnostic-*,clang-analyzer-*,bugprone-*,misc-*,readability-*" \
-            -- -x c -std=c11 -Wall -Wextra -Wmissing-prototypes -Wshadow -Itest-cases
+            -- -x c -std=c11 -Wall -Wextra -Wmissing-prototypes -Wshadow -Itest-cases test-cases/${{ matrix.file }}
+            
+            
+  codeql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: c-cpp
+  
+      - name: Build test cases
+        run: |
+          gcc -c test-cases/01_unused_function_wrong.c -o /tmp/01.o
+          gcc -c test-cases/02_shadowing_wrong.c -o /tmp/02.o
+          gcc -c test-cases/03_dead_store_wrong.c -o /tmp/03.o
+  
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
