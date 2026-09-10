@@ -1,6 +1,6 @@
 name: Static Analysis Test
 
-on: [push]
+on: [push, pull_request]
 
 permissions:
   contents: read
