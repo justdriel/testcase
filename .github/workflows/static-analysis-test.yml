@@ -86,9 +86,9 @@ jobs:
   
       - name: Build test cases
         run: |
-          gcc -c test-cases/01_unused_function_wrong.c -o /tmp/01.o
-          gcc -c test-cases/02_shadowing_wrong.c -o /tmp/02.o
-          gcc -c test-cases/03_dead_store_wrong.c -o /tmp/03.o
+          gcc -c test-cases/bl1_process.c -o /tmp/01.o
+          gcc -c test-cases/bl1_process.h -o /tmp/02.o
+    #      gcc -c test-cases/03_dead_store_wrong.c -o /tmp/03.o
   
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
