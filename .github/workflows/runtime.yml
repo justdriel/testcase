@@ -1,0 +1,16 @@
+name: Runtime Analysis Test
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run test
+        run: |
+          gcc test-2/checksum.c test-2/test_checksum.c -I test-2 -o test_runner
+          ./test_runner
