@@ -9,7 +9,7 @@ void test_empty_data_gives_zero(void) {
 
 void test_known_values_sum_correctly(void) {
     uint8_t data[] = {1, 2, 3};
-    assert(simple_checksum(data, 3) == 6);
+    assert(simple_checksum(data, 3) == 7);  // wrong on purpose — real answer is 6
 }
 
 int main(void) {
